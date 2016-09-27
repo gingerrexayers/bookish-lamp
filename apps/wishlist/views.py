@@ -62,7 +62,7 @@ def delete(request, id):
         for s in result[1]:
             messages.success(request, s)
     else:
-        for e in i[1]:
+        for e in result[1]:
             messages.error(request, e)
 
     return redirect(reverse('wishlist:index'))
