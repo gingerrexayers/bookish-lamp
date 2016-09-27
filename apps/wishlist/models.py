@@ -18,7 +18,7 @@ class ItemManager(models.Manager):
         w = Wishlist.manager.get(user=u)
         w.items.add(i)
         w.save()
-        return (True, i)
+        return (True, ['Success'])
 
     def get_items_not_in_wishlist(self, user_id):
         u = User.manager.get(id=user_id)
