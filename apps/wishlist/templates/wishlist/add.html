@@ -28,7 +28,7 @@
     <form action='{% url "wishlist:create" %}' method='post'>
       {% csrf_token %}
       <input type='text' name='id' value='{{request.session.id}}' hidden/>
-      <input type='text' name='name'/>
+      <label for='item_name'>Item/Product:</label><input type='text' id='item_name' name='name'/>
       <input type='submit' value='Add'/>
     </form>
   </main>

@@ -29,8 +29,6 @@ def create(request):
 
     i = Item.manager.new_item(request.POST)
     if i[0]:
-        for s in i[1]:
-            messages.success(request, s)
         return redirect(reverse('wishlist:index'))
     else:
         for e in i[1]:
