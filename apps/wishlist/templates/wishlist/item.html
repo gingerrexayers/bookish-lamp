@@ -1,0 +1,29 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <meta http-equiv='X-UA-Compatible' content='ie=edge' />
+  <link rel='stylesheet' href='{% static "wishlist/css/undohtml.css" %}' />
+  <link rel='stylesheet' href='{% static "wishlist/css/styles.css" %}' />
+  <title>{{item.name}}</title>
+</head>
+<body>
+  <header>
+    <div id='title'>{{item.name}}</div>
+    <nav>
+      <a href='{% url "wishlist:index" %}'>Home</a>
+      <a href='{% url "login:logout" %}'>Logout</a>
+    <nav>
+  </header>
+  <main>
+    <p>Users who added this product/item under their wish list:</p>
+    <ul>
+      {% for list in wishlists %}
+      <li>{{list.user.name}}</li>
+      {% endfor %}
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,73 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <meta http-equiv='X-UA-Compatible' content='ie=edge' />
+  <link rel='stylesheet' href='{% static "wishlist/css/undohtml.css" %}' />
+  <link rel='stylesheet' href='{% static "wishlist/css/styles.css" %}' />
+  <title>My Wish List</title>
+</head>
+<body>
+  <header>
+    <div id='title'>Welcome, {{me.name}}</div>
+    <nav>
+      <a href='{% url "login:logout" %}'>Logout</a>
+    <nav>
+  </header>
+  {% if messages %}
+  <ul class='messages'>
+    {% for message in messages %}
+    <li {% if message.tags %}class='{{message.tags}}'{% endif %}>{{message}}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <main>
+    <p>Your Wish List:</p>
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Added By</th>
+        <th>Date Added</th>
+        <th>Action</th>
+      </tr>
+      {% for item in my_list %}
+      <tr>
+        <td><a href='{% url "wishlist:item" item.id %}'>{{item.name}}</a></td>
+        <td>{{item.added_by.name}}</td>
+        <td>{{item.created_at}}</td>
+        {% if item.added_by.name == me.name %}
+        <td><a href='{% url "wishlist:delete" item.id %}'>Delete</a></td>
+        {% else %}
+        <td><a href='{% url "wishlist:remove" item.id %}'>Remove from my Wishlist</a></td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+
+    <p>Other Users' Wish List:</p>
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Added By</th>
+        <th>Date Added</th>
+        <th>Action</th>
+      </tr>
+      {% for item in other_items %}
+      <tr>
+        <td><a href='{% url "wishlist:item" item.id %}'>{{item.name}}</a></td>
+        <td>{{item.added_by.name}}</td>
+        <td>{{item.created_at}}</td>
+        <td><a href='{% url "wishlist:addtomylist" item.id %}'>Add to my Wishlist</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </main>
+  <footer>
+    <div id='actions'>
+      <a href='{% url "wishlist:add" %}'>Add Item</a>
+    </div>
+  </footer>
+</body>
+</html>
